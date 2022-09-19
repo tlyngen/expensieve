@@ -41,7 +41,3 @@ jobs:
           --disable=import-error    # Need Conda environment?
           ${{ steps.changed-files-python.outputs.all_changed_files }}
         fi
-      
-
-
-  continue-on-error: true
