@@ -29,7 +29,7 @@ class Expense(Base):
     open = Column(Boolean)
     date = Column(DATETIME)
 
-    user = relationship("User")
+    user = relationship("User", viewonly=True)
 
     def __repr__(self):
         return f"""
@@ -49,8 +49,8 @@ class UserExpense(Base):
     amount = Column(Float)
     amount_paid = Column(Integer)
 
-    user = relationship("User")
-    expense = relationship("Expense")
+    user = relationship("User", viewonly=True)
+    expense = relationship("Expense", viewonly=True)
 
     def __repr__(self):
         return f"""
@@ -58,5 +58,4 @@ class UserExpense(Base):
             {self.user_id},
             {self.expense_id},
             {self.amount},
-            {self.amount_paid},
-            {self.active}"""
+            {self.amount_paid}"""
