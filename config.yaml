@@ -1,2 +1,5 @@
 name: Expensieve configuration
 version: 0.1
+
+database:
+    sql_echo: false

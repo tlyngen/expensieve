@@ -3,9 +3,8 @@ import logging
 import argparse
 import yaml
 import traceback
-#import os
 
-from expensieve import ExpensieveApp
+from expensieve import Expensieve
 
 
 def main(args):
@@ -13,7 +12,7 @@ def main(args):
         configure_logging()
         logger = logging.getLogger("main")
         config = load_config()
-        ExpensieveApp(config).run()
+        Expensieve(config).run()
     except Exception as e:
         logger.error(f"Exception: {e}")
         logger.error(traceback.format_exc())
@@ -21,16 +20,17 @@ def main(args):
 
 def configure_logging():
     dateformat = '%Y-%m-%d %H:%M:%S %p'
-    logformat = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     logging.basicConfig(
         filename='app.log',
-        format=logformat,
+        format=log_format,
         datefmt=dateformat,
         level=logging.DEBUG)
     console = logging.StreamHandler()
     console.setLevel(logging.DEBUG)
-    console_format = logging.Formatter('%(name)s - %(levelname)s - %(message)s')
-    console.setFormatter(console_format)
+    console_format = '%(name)s - %(levelname)s - %(message)s'
+    console_formatter = logging.Formatter(console_format)
+    console.setFormatter(console_formatter)
     logging.getLogger('').addHandler(console)
 
 
@@ -40,7 +40,7 @@ def load_config():
 
 
 if __name__ == "__main__":
-    app_description = """Expensieve - An expense sharing app for human beings"""
+    app_description = """Expensieve - Expense sharing app for human beings"""
     parser = argparse.ArgumentParser(
         description=app_description,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
