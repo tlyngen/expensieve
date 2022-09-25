@@ -21,7 +21,7 @@ class Expensieve(object):
     def db_test(self):
         self.db.drop_tables()
         self.db.create_tables()
-        self.logger.info("creating new user")
         self.db.create_user(username="tlyngen", password="hello123")
         password = self.db.get_user_password("tlyngen")
         self.logger.info(f"user password: {password}")
+        self.db.create_user(username="tlyngen", password="hello123")

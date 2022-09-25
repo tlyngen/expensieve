@@ -36,7 +36,7 @@ class Database:
         Base.metadata.drop_all(self.engine)
 
     def get_user_password(self, username):
-        self.logger.info(f"get_user_name: {username}")
+        self.logger.info(f"get_user_password: {username}")
         with Session(self.engine) as session:
             stmt = select(User.password).where(User.username == username)
             result = session.execute(stmt)
@@ -48,16 +48,16 @@ class Database:
                 return None
 
     def create_user(self, username, password):
-        self.logger.info(f"create - username: {username} password: {password}")
+        self.logger.info(f"create_user: {username} {password}")
         with Session(self.engine) as session:
             stmt = select(User.username)
             result = session.execute(stmt)
             _username = result.scalar_one_or_none()
             if _username:
-                self.logger.info(f"user exists: {_username}")
+                self.logger.info(f"user exists: {username}")
                 return
             else:
                 new_user = User(username=username, password=password)
-                self.logger.info(f"creating user: {username}, pass: {password}")
                 session.add(new_user)
+                self.logger.info(f"created user: {username}")
                 return
