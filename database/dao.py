@@ -4,6 +4,7 @@ from .models import Base, User, Expense, UserExpense
 
 from sqlalchemy import create_engine, select, insert, update
 from database.session import Session
+from exceptions import BlankUsernameOrPasswordException
 
 
 class Database:
@@ -40,24 +41,22 @@ class Database:
         with Session(self.engine) as session:
             stmt = select(User.password).where(User.username == username)
             result = session.execute(stmt)
-            password = result.scalar_one()
-            if password:
-                self.logger.info(f"password: {password}")
-                return password
-            else:
-                return None
+            password = result.scalar_one_or_none()
+            self.logger.info(f"password: {password}")
+            return password
 
     def create_user(self, username, password):
+        if not username or not password:
+            raise BlankUsernameOrPasswordException(
+                "blanks not permitted for username or password")
         self.logger.info(f"create_user: {username} {password}")
         with Session(self.engine) as session:
-            stmt = select(User.username)
+            stmt = select(User.password).where(User.username == username)
             result = session.execute(stmt)
             _username = result.scalar_one_or_none()
             if _username:
                 self.logger.info(f"user exists: {username}")
-                return
             else:
                 new_user = User(username=username, password=password)
                 session.add(new_user)
                 self.logger.info(f"created user: {username}")
-                return

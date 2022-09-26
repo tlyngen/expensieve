@@ -4,7 +4,7 @@ import argparse
 import yaml
 import traceback
 
-from expensieve import Expensieve
+from expensieve import ExpensieveApp
 
 
 def main(args):
@@ -12,7 +12,7 @@ def main(args):
         configure_logging()
         logger = logging.getLogger("main")
         config = load_config()
-        Expensieve(config).run()
+        ExpensieveApp(config).run()
     except Exception as e:
         logger.error(f"Exception: {e}")
         logger.error(traceback.format_exc())
