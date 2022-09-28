@@ -48,6 +48,7 @@ class Ui_MainWindow(object):
         self.labellOwedToOthersValue.setObjectName("labellOwedToOthersValue")
         self.pushButtonNewExpense = QtWidgets.QPushButton(self.centralwidget)
         self.pushButtonNewExpense.setGeometry(QtCore.QRect(100, 110, 101, 31))
+        self.pushButtonNewExpense.setAutoDefault(True)
         self.pushButtonNewExpense.setObjectName("pushButtonNewExpense")
         self.groupBoxExpenses = QtWidgets.QGroupBox(self.centralwidget)
         self.groupBoxExpenses.setGeometry(QtCore.QRect(210, 10, 301, 411))
@@ -62,6 +63,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        MainWindow.setTabOrder(self.pushButtonNewExpense, self.listWidgetExpenses)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate

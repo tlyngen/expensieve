@@ -1,7 +1,9 @@
 from ast import For
+from email.policy import default
 from sqlalchemy.orm import declarative_base, relationship
 from sqlalchemy import (Column, Integer, Float, String, Boolean, ForeignKey)
 from sqlalchemy.dialects.sqlite import DATETIME
+from datetime import datetime
 
 
 Base = declarative_base()
@@ -24,10 +26,11 @@ class Expense(Base):
     __tablename__ = 'expense'
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey("user.id"))
+    name = Column(String)
     amount = Column(Float)
     split_type = Column(String)
-    open = Column(Boolean)
-    date = Column(DATETIME)
+    open = Column(Boolean, default=True)
+    date = Column(DATETIME, default=datetime.now())
 
     user = relationship("User", viewonly=True)
 
@@ -35,6 +38,7 @@ class Expense(Base):
         return f"""
             {self.id},
             {self.user_id},
+            {self.name},
             {self.amount},
             {self.split_type},
             {self.open},

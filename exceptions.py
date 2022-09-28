@@ -8,3 +8,11 @@ class AuthenticationFailureException(LoginException):
 
 class BlankUsernameOrPasswordException(LoginException):
     pass
+
+
+class ExpenseException(Exception):
+    pass
+
+
+class BlankExpenseException(ExpenseException):
+    pass

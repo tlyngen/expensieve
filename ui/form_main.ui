@@ -141,6 +141,9 @@
     <property name="text">
      <string>New Expense</string>
     </property>
+    <property name="autoDefault">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QGroupBox" name="groupBoxExpenses">
     <property name="geometry">
@@ -168,6 +171,10 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>pushButtonNewExpense</tabstop>
+  <tabstop>listWidgetExpenses</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
  <designerdata>

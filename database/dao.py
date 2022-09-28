@@ -4,7 +4,7 @@ from .models import Base, User, Expense, UserExpense
 
 from sqlalchemy import create_engine, select, insert, update
 from database.session import Session
-from exceptions import BlankUsernameOrPasswordException
+from exceptions import BlankUsernameOrPasswordException, BlankExpenseException
 
 
 class Database:
@@ -45,6 +45,15 @@ class Database:
             self.logger.info(f"password: {password}")
             return password
 
+    def get_user_id(self, username):
+        self.logger.info(f"get_user_id: {username}")
+        with Session(self.engine) as session:
+            stmt = select(User.id).where(User.username == username)
+            result = session.execute(stmt)
+            id = result.scalar_one_or_none()
+            self.logger.info(f"id: {id}")
+            return id
+
     def create_user(self, username, password):
         if not username or not password:
             raise BlankUsernameOrPasswordException(
@@ -60,3 +69,18 @@ class Database:
                 new_user = User(username=username, password=password)
                 session.add(new_user)
                 self.logger.info(f"created user: {username}")
+
+    def save_expense(self, username, expense_name, expense_amount):
+        if not username or not expense_name or not expense_amount:
+            raise BlankExpenseException(
+                "blanks not permitted for expense name or amount")
+        self.logger.info(f"""save_expense:
+            {username} {expense_name} {expense_amount}""")
+        user_id = self.get_user_id(username)
+        expense = Expense()
+        expense.user_id = user_id
+        expense.name = expense_name
+        expense.amount = expense_amount
+        self.logger.debug(f"saving expense: {expense}")
+        with Session(self.engine) as session:
+            session.add(expense)
