@@ -32,17 +32,20 @@ class ExpensieveApp(object):
     def user_login(self):
         dialog = LoginDialog()
         result = dialog.exec()
-        self.logger.debug(result)
+        user = None
+        password = None
         if result:
             user, password = dialog.get_inputs()
             self.logger.debug(f"{user} {password}")
-        try:
-            if dialog.is_create_user():
-                return self.create_user(user, password)
-            else:
-                return self.authenticate_user(user, password)
-        except LoginException as le:
-            self.error_message(str(le))
+            try:
+                if dialog.is_create_user():
+                    return self.create_user(user, password)
+                else:
+                    return self.authenticate_user(user, password)
+            except LoginException as le:
+                self.error_message(str(le))
+        else:
+            self.logger.info("no result from user login")
 
     def error_message(self, message):
         error = QMessageBox()
@@ -87,9 +90,11 @@ class Window(QMainWindow, Ui_MainWindow):
         self.logger = logging.getLogger(__name__)
         self.database = database
         self.active_user = user
+        self.active_user_id = self.database.get_user_id(self.active_user)
         self.setupUi(self)
         self.setWindowTitle(f"{self.windowTitle()} - {self.active_user}")
         self.pushButtonNewExpense.clicked.connect(self.new_expense)
+        self.update_expense_list()
 
     def new_expense(self):
         dialog = ExpenseDialog(self)
@@ -97,9 +102,20 @@ class Window(QMainWindow, Ui_MainWindow):
             name, amount = dialog.get_inputs()
             self.logger.debug(f"name: {name} amount: {amount}")
             self.database.save_expense(
-                username=self.active_user,
+                user_id=self.active_user_id,
                 expense_name=name,
                 expense_amount=amount)
+            self.update_expense_list()
+
+    def update_expense_list(self):
+        expenses = self.database.get_user_expenses(self.active_user_id)
+        self.listWidgetExpenses.clear()
+        exp = [ex.__repr__() for ex in expenses]
+        self.listWidgetExpenses.addItems(exp)
+        total = 0
+        for ex in expenses:
+            total += ex.amount
+        self.labelTotalExpensesValue.setText(str(total))
 
 
 class ExpenseDialog(QDialog, Ui_DialogExpense):

@@ -5,20 +5,13 @@ from .models import Base, User, Expense, UserExpense
 from sqlalchemy import create_engine, select, insert, update
 from database.session import Session
 from exceptions import BlankUsernameOrPasswordException, BlankExpenseException
+from dataclass import ExpenseData
 
 
 class Database:
 
     def __init__(self, config):
         self.logger = logging.getLogger(__name__)
-
-        # duplicate db logger debug statements
-        # loggers = [logging.getLogger(name)
-        #   for name in logging.root.manager.loggerDict]
-        # self.logger.debug("*** loggers ***")
-        # for logger in loggers:
-        #    self.logger.debug(logger)
-
         self.config = config
         self.connection_string = self._create_conn_string()
         self.engine = create_engine(self.connection_string,
@@ -70,13 +63,10 @@ class Database:
                 session.add(new_user)
                 self.logger.info(f"created user: {username}")
 
-    def save_expense(self, username, expense_name, expense_amount):
-        if not username or not expense_name or not expense_amount:
+    def save_expense(self, user_id, expense_name, expense_amount):
+        if not user_id or not expense_name or not expense_amount:
             raise BlankExpenseException(
                 "blanks not permitted for expense name or amount")
-        self.logger.info(f"""save_expense:
-            {username} {expense_name} {expense_amount}""")
-        user_id = self.get_user_id(username)
         expense = Expense()
         expense.user_id = user_id
         expense.name = expense_name
@@ -84,3 +74,27 @@ class Database:
         self.logger.debug(f"saving expense: {expense}")
         with Session(self.engine) as session:
             session.add(expense)
+
+    def get_user_expenses(self, user_id):
+        self.logger.info(f"get_user_expenses for user_id: {user_id}")
+        with Session(self.engine) as session:
+            stmt = select(Expense).where(Expense.user_id == user_id)
+            result = session.execute(stmt)
+            expenses = result.scalars().all()
+            self.logger.info(f"expenses for user_id: {user_id}")
+            expense_data = []
+            for ex in expenses:
+                self.logger.info(ex)
+                expense_data.append(self.expense_model_to_data(ex))
+            return expense_data
+
+    def expense_model_to_data(self, expense):
+        ex = ExpenseData()
+        ex.id = expense.id
+        ex.user_id = expense.user_id
+        ex.name = expense.name
+        ex.amount = expense.amount
+        ex.split_type = expense.split_type
+        ex.open = expense.open
+        ex.date = expense.date
+        return ex

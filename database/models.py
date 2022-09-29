@@ -19,7 +19,10 @@ class User(Base):
     user_expense = relationship("UserExpense")
 
     def __repr__(self):
-        return f"{self.id}, {self.username}, {self.password}"
+        return \
+            f"id={self.id}, "\
+            f"username={self.username}, "\
+            f"password={self.password}"
 
 
 class Expense(Base):
@@ -35,14 +38,14 @@ class Expense(Base):
     user = relationship("User", viewonly=True)
 
     def __repr__(self):
-        return f"""
-            {self.id},
-            {self.user_id},
-            {self.name},
-            {self.amount},
-            {self.split_type},
-            {self.open},
-            {self.date}"""
+        return \
+            f"id={self.id}, "\
+            f"user_id={self.user_id}, "\
+            f"name={self.name}, "\
+            f"amount={self.amount}, "\
+            f"split_type={self.split_type}, "\
+            f"open={self.open}, "\
+            f"date={self.date}"
 
 
 class UserExpense(Base):
@@ -57,9 +60,8 @@ class UserExpense(Base):
     expense = relationship("Expense", viewonly=True)
 
     def __repr__(self):
-        return f"""
-            {self.user_id},
-            {self.user_id},
-            {self.expense_id},
-            {self.amount},
-            {self.amount_paid}"""
+        return \
+            f"user_id={self.user_id}, "\
+            f"expense_id={self.expense_id}, "\
+            f"amount={self.amount}, "\
+            f"amount_paid={self.amount_paid}"
