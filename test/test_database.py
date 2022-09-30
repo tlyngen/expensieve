@@ -1,4 +1,3 @@
-from sqlite3 import connect
 import pytest
 
 from sqlalchemy import create_engine
