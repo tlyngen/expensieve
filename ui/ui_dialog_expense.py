@@ -42,6 +42,9 @@ class Ui_DialogExpense(object):
         self.pushButtonCancel.clicked.connect(DialogExpense.reject) # type: ignore
         self.pushButtonSave.clicked.connect(DialogExpense.accept) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(DialogExpense)
+        DialogExpense.setTabOrder(self.lineEditExpenseName, self.lineEditExpenseAmount)
+        DialogExpense.setTabOrder(self.lineEditExpenseAmount, self.pushButtonSave)
+        DialogExpense.setTabOrder(self.pushButtonSave, self.pushButtonCancel)
 
     def retranslateUi(self, DialogExpense):
         _translate = QtCore.QCoreApplication.translate

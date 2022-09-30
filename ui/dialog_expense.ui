@@ -98,6 +98,12 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>lineEditExpenseName</tabstop>
+  <tabstop>lineEditExpenseAmount</tabstop>
+  <tabstop>pushButtonSave</tabstop>
+  <tabstop>pushButtonCancel</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>
