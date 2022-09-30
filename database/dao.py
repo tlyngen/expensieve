@@ -9,13 +9,10 @@ from dataclass import ExpenseData
 
 
 class Database:
-
-    def __init__(self, config):
+    def __init__(self, echo=False):
         self.logger = logging.getLogger(__name__)
-        self.config = config
         self.connection_string = self._create_conn_string()
-        self.engine = create_engine(self.connection_string,
-                                    echo=self.config["sql_echo"])
+        self.engine = create_engine(self.connection_string, echo=echo)
 
     def _create_conn_string(self):
         conn_str = "sqlite:///./database/expensieve.db"
@@ -28,24 +25,6 @@ class Database:
     def drop_tables(self):
         self.logger.info("dropping tables")
         Base.metadata.drop_all(self.engine)
-
-    def get_user_password(self, username):
-        self.logger.info(f"get_user_password: {username}")
-        with Session(self.engine) as session:
-            stmt = select(User.password).where(User.username == username)
-            result = session.execute(stmt)
-            password = result.scalar_one_or_none()
-            self.logger.info(f"password: {password}")
-            return password
-
-    def get_user_id(self, username):
-        self.logger.info(f"get_user_id: {username}")
-        with Session(self.engine) as session:
-            stmt = select(User.id).where(User.username == username)
-            result = session.execute(stmt)
-            id = result.scalar_one_or_none()
-            self.logger.info(f"id: {id}")
-            return id
 
     def create_user(self, username, password):
         if not username or not password:
@@ -62,6 +41,24 @@ class Database:
                 new_user = User(username=username, password=password)
                 session.add(new_user)
                 self.logger.info(f"created user: {username}")
+
+    def get_user_id(self, username):
+        self.logger.info(f"get_user_id: {username}")
+        with Session(self.engine) as session:
+            stmt = select(User.id).where(User.username == username)
+            result = session.execute(stmt)
+            id = result.scalar_one_or_none()
+            self.logger.info(f"id: {id}")
+            return id
+
+    def get_user_password(self, username):
+        self.logger.info(f"get_user_password: {username}")
+        with Session(self.engine) as session:
+            stmt = select(User.password).where(User.username == username)
+            result = session.execute(stmt)
+            password = result.scalar_one_or_none()
+            self.logger.info(f"password: {password}")
+            return password
 
     def save_expense(self, user_id, expense_name, expense_amount):
         if not user_id or not expense_name or not expense_amount:
