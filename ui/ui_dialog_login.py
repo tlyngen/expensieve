@@ -25,6 +25,10 @@ class Ui_DialogLogin(object):
         self.lineEditUserName = QtWidgets.QLineEdit(DialogLogin)
         self.lineEditUserName.setGeometry(QtCore.QRect(90, 10, 113, 20))
         self.lineEditUserName.setObjectName("lineEditUserName")
+
+        # manually added outside designer
+        self.lineEditUserName.setFocus()
+
         self.lineEditPassword = QtWidgets.QLineEdit(DialogLogin)
         self.lineEditPassword.setGeometry(QtCore.QRect(90, 40, 113, 20))
         self.lineEditPassword.setObjectName("lineEditPassword")
@@ -42,6 +46,9 @@ class Ui_DialogLogin(object):
         self.pushButtonLogin.clicked.connect(DialogLogin.accept) # type: ignore
         self.pushButtonCreate.clicked.connect(DialogLogin.accept) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(DialogLogin)
+        DialogLogin.setTabOrder(self.lineEditUserName, self.lineEditPassword)
+        DialogLogin.setTabOrder(self.lineEditPassword, self.pushButtonCreate)
+        DialogLogin.setTabOrder(self.pushButtonCreate, self.pushButtonLogin)
 
     def retranslateUi(self, DialogLogin):
         _translate = QtCore.QCoreApplication.translate
