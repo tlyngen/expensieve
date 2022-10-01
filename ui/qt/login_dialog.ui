@@ -98,6 +98,12 @@
    </property>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>lineEditUserName</tabstop>
+  <tabstop>lineEditPassword</tabstop>
+  <tabstop>pushButtonCreate</tabstop>
+  <tabstop>pushButtonLogin</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

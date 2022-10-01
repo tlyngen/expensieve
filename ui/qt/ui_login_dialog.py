@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\tlyngen\source\repos\expensieve\ui\dialog_login.ui'
+# Form implementation generated from reading ui file 'c:\Users\tlyngen\source\repos\expensieve\ui\qt\login_dialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -42,6 +42,9 @@ class Ui_DialogLogin(object):
         self.pushButtonLogin.clicked.connect(DialogLogin.accept) # type: ignore
         self.pushButtonCreate.clicked.connect(DialogLogin.accept) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(DialogLogin)
+        DialogLogin.setTabOrder(self.lineEditUserName, self.lineEditPassword)
+        DialogLogin.setTabOrder(self.lineEditPassword, self.pushButtonCreate)
+        DialogLogin.setTabOrder(self.pushButtonCreate, self.pushButtonLogin)
 
     def retranslateUi(self, DialogLogin):
         _translate = QtCore.QCoreApplication.translate

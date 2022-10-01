@@ -107,34 +107,34 @@
  <resources/>
  <connections>
   <connection>
-   <sender>pushButtonCancel</sender>
-   <signal>clicked()</signal>
-   <receiver>DialogExpense</receiver>
-   <slot>reject()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>149</x>
-     <y>87</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>139</x>
-     <y>74</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>pushButtonSave</sender>
    <signal>clicked()</signal>
    <receiver>DialogExpense</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>63</x>
-     <y>95</y>
+     <x>68</x>
+     <y>83</y>
     </hint>
     <hint type="destinationlabel">
-     <x>27</x>
-     <y>77</y>
+     <x>23</x>
+     <y>64</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButtonCancel</sender>
+   <signal>clicked()</signal>
+   <receiver>DialogExpense</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>165</x>
+     <y>93</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>176</x>
+     <y>68</y>
     </hint>
    </hints>
   </connection>

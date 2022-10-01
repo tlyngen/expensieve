@@ -4,7 +4,7 @@ import argparse
 import yaml
 import traceback
 
-from expensieve import ExpensieveApp
+from main import ExpensieveApp
 
 
 def main(args):
