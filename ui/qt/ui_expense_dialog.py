@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\tlyngen\source\repos\expensieve\ui\dialog_expense.ui'
+# Form implementation generated from reading ui file 'c:\Users\tlyngen\source\repos\expensieve\ui\qt\expense_dialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -39,8 +39,8 @@ class Ui_DialogExpense(object):
         self.pushButtonCancel.setObjectName("pushButtonCancel")
 
         self.retranslateUi(DialogExpense)
-        self.pushButtonCancel.clicked.connect(DialogExpense.reject) # type: ignore
         self.pushButtonSave.clicked.connect(DialogExpense.accept) # type: ignore
+        self.pushButtonCancel.clicked.connect(DialogExpense.reject) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(DialogExpense)
         DialogExpense.setTabOrder(self.lineEditExpenseName, self.lineEditExpenseAmount)
         DialogExpense.setTabOrder(self.lineEditExpenseAmount, self.pushButtonSave)

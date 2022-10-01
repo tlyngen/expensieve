@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\tlyngen\source\repos\expensieve\ui\dialog_login.ui'
+# Form implementation generated from reading ui file 'c:\Users\tlyngen\source\repos\expensieve\ui\qt\login_dialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -25,10 +25,6 @@ class Ui_DialogLogin(object):
         self.lineEditUserName = QtWidgets.QLineEdit(DialogLogin)
         self.lineEditUserName.setGeometry(QtCore.QRect(90, 10, 113, 20))
         self.lineEditUserName.setObjectName("lineEditUserName")
-
-        # manually added outside designer
-        self.lineEditUserName.setFocus()
-
         self.lineEditPassword = QtWidgets.QLineEdit(DialogLogin)
         self.lineEditPassword.setGeometry(QtCore.QRect(90, 40, 113, 20))
         self.lineEditPassword.setObjectName("lineEditPassword")

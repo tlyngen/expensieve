@@ -1,13 +1,10 @@
-import sys
 import logging
 
-from PyQt5.QtWidgets import (
-    QApplication, QMainWindow, QDialog, QMessageBox
-)
-
 from database.dao import Database
-from ui import Ui_MainWindow, Ui_DialogExpense, Ui_DialogLogin
+from ui.main_window import MainWindow
+from ui.login_dialog import LoginDialog
 from exceptions import LoginException, AuthenticationFailureException
+from PyQt5.QtWidgets import QApplication, QMessageBox
 
 
 class ExpensieveApp(object):
@@ -71,7 +68,7 @@ class ExpensieveApp(object):
 
     def load_main_form(self, user):
         self.logger.info("loading main form")
-        window = Window(self.db, user)
+        window = MainWindow(self.db, user)
         window.show()
         self.app.exec()
 
@@ -82,68 +79,3 @@ class ExpensieveApp(object):
         password = self.db.get_user_password("tlyngen")
         self.logger.info(f"user password: {password}")
         self.db.create_user(username="tlyngen", password="hello")
-
-
-class Window(QMainWindow, Ui_MainWindow):
-    def __init__(self, database, user, parent=None):
-        super().__init__(parent)
-        self.logger = logging.getLogger(__name__)
-        self.database = database
-        self.active_user = user
-        self.active_user_id = self.database.get_user_id(self.active_user)
-        self.setupUi(self)
-        self.setWindowTitle(f"{self.windowTitle()} - {self.active_user}")
-        self.pushButtonNewExpense.clicked.connect(self.new_expense)
-        self.update_expense_list()
-
-    def new_expense(self):
-        dialog = ExpenseDialog(self)
-        if dialog.exec():
-            name, amount = dialog.get_inputs()
-            self.logger.debug(f"name: {name} amount: {amount}")
-            self.database.save_expense(
-                user_id=self.active_user_id,
-                expense_name=name,
-                expense_amount=amount)
-            self.update_expense_list()
-
-    def update_expense_list(self):
-        expenses = self.database.get_user_expenses(self.active_user_id)
-        self.listWidgetExpenses.clear()
-        exp = [ex.__repr__() for ex in expenses]
-        self.listWidgetExpenses.addItems(exp)
-        total = 0
-        for ex in expenses:
-            total += ex.amount
-        self.labelTotalExpensesValue.setText(str(total))
-
-
-class ExpenseDialog(QDialog, Ui_DialogExpense):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setupUi(self)
-        self.pushButtonCancel.clicked.connect(self.close)
-
-    def get_inputs(self):
-        name = self.lineEditExpenseName.text()
-        amount = float(self.lineEditExpenseAmount.text())
-        return name, amount
-
-
-class LoginDialog(QDialog, Ui_DialogLogin):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setupUi(self)
-        self.create_user = False
-        self.pushButtonCreate.clicked.connect(self.set_create_user)
-
-    def set_create_user(self):
-        self.create_user = True
-
-    def is_create_user(self):
-        return self.create_user
-
-    def get_inputs(self):
-        user = self.lineEditUserName.text()
-        password = self.lineEditPassword.text()
-        return user, password
