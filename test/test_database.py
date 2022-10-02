@@ -39,9 +39,17 @@ class TestDatabase:
     USERNAME = "test_user"
     PASSWORD = "test_password"
 
-    def test_create_tables(db_session, app_database, db_engine):
+    def test_drop_tables(db_session, app_database, db_engine):
         app_database.drop_tables()
-        # app_database.create_tables()
+        user_exists = inspect(db_engine).has_table("user")
+        expense_exists = inspect(db_engine).has_table("expense")
+        user_expense_exists = inspect(db_engine).has_table("user_expense")
+        assert not user_exists
+        assert not expense_exists
+        assert not user_expense_exists
+
+    def test_create_tables(db_session, app_database, db_engine):
+        app_database.create_tables()
         user_exists = inspect(db_engine).has_table("user")
         expense_exists = inspect(db_engine).has_table("expense")
         user_expense_exists = inspect(db_engine).has_table("user_expense")
