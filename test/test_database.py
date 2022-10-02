@@ -17,7 +17,6 @@ def app_database():
 def db_engine():
     conn_str = "sqlite:///./database/expensieve.db"
     engine = create_engine(conn_str)
-    Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
     yield engine
     engine.dispose()
@@ -40,9 +39,9 @@ class TestDatabase:
     USERNAME = "test_user"
     PASSWORD = "test_password"
 
-    def assert_passed(message="None"):
-        print(message)
-        return True
+    def test_create_tables(db_session, app_database):
+        app_database.create_tables()
+        assert True
 
     def test_create_user(db_session, app_database):
         app_database.create_user(
