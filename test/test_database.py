@@ -40,6 +40,7 @@ class TestDatabase:
     PASSWORD = "test_password"
 
     def test_create_tables(db_session, app_database, db_engine):
+        app_database.drop_tables()
         # app_database.create_tables()
         user_exists = inspect(db_engine).has_table("user")
         expense_exists = inspect(db_engine).has_table("expense")
