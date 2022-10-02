@@ -1,10 +1,9 @@
 import logging
 
 from database.dao import Database
-from ui.main_window import MainWindow
-from ui.login_dialog import LoginDialog
+from ui import MainWindow, LoginDialog, ErrorDialog
 from exceptions import LoginException, AuthenticationFailureException
-from PyQt5.QtWidgets import QApplication, QMessageBox
+from PyQt5.QtWidgets import QApplication
 
 
 class ExpensieveApp(object):
@@ -40,15 +39,9 @@ class ExpensieveApp(object):
                 else:
                     return self.authenticate_user(user, password)
             except LoginException as le:
-                self.error_message(str(le))
+                ErrorDialog.show_error_message(str(le))
         else:
             self.logger.info("no result from user login")
-
-    def error_message(self, message):
-        error = QMessageBox()
-        error.setWindowTitle("Error")
-        error.setText(message)
-        error.exec()
 
     def authenticate_user(self, user, password):
         self.logger.info("authenticating user")
