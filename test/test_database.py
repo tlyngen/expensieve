@@ -2,7 +2,7 @@ import pytest
 
 from sqlalchemy import create_engine, inspect
 from sqlalchemy.orm import scoped_session, sessionmaker
-from database.models import Base, User
+from database.models import Base, Expense
 
 from database.dao import Database
 
@@ -63,11 +63,6 @@ class TestDatabase:
             password=TestDatabase.PASSWORD
         )
         user_id = app_database.get_user_id(TestDatabase.USERNAME)
-        # user = User(
-        #     username=TestDatabase.USERNAME,
-        #     password=TestDatabase.PASSWORD)
-        # db_session.add(user)
-        # db_session.commit()
         assert user_id > 0, f"user={user_id}"
         print(f"user_id={user_id}")
 
@@ -75,3 +70,16 @@ class TestDatabase:
         password = app_database.get_user_password(TestDatabase.USERNAME)
         assert password == TestDatabase.PASSWORD
         print(f"password: {password}")
+
+    def test_save_expense(db_session, app_database):
+        user_id = app_database.get_user_id(username=TestDatabase.USERNAME)
+        _name = "expense 1"
+        _amount = 100.00
+        app_database.save_expense(
+            user_id,
+            expense_name=_name,
+            expense_amount=_amount)
+        expenses = app_database.get_user_expenses(user_id)
+        expense = expenses[0]
+        assert expense.name == _name
+        assert expense.amount == _amount
