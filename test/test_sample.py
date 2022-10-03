@@ -2,6 +2,8 @@ import pytest
 
 
 def test_method1():
-    x = 5
-    y = 6
-    assert x + 1 == y, "test failed because x=" + str(x) + " y=" + str(y)
+    test_value = True
+    require_value = True
+    assert test_value == require_value,\
+        f"test failed because: {test_value} != {require_value}"
+    print(f"test passed because: {test_value} == {require_value}")
