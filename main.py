@@ -61,7 +61,7 @@ class ExpensieveApp(object):
 
     def load_main_form(self, user):
         self.logger.info("loading main form")
-        window = MainWindow(self.db, user)
+        window = MainWindow(user)
         window.show()
         self.app.exec()
 

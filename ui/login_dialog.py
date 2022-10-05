@@ -27,3 +27,4 @@ class LoginDialog(QDialog, Ui_DialogLogin):
         self.lineEditUserName.setText(username)
         self.lineEditPassword.setText(password)
         self.pushButtonLogin.click()
+        self.accept()
