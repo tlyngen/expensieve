@@ -102,7 +102,7 @@
       <string>0</string>
      </property>
     </widget>
-    <widget class="QLabel" name="labellOwedToMeValue">
+    <widget class="QLabel" name="labelOwedToMeValue">
      <property name="geometry">
       <rect>
        <x>110</x>
@@ -115,7 +115,7 @@
       <string>0</string>
      </property>
     </widget>
-    <widget class="QLabel" name="labellOwedToOthersValue">
+    <widget class="QLabel" name="labelOwedToOthersValue">
      <property name="geometry">
       <rect>
        <x>110</x>
