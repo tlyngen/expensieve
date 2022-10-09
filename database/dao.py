@@ -6,6 +6,7 @@ from sqlalchemy import create_engine, select, insert, update
 from database.session import Session
 from exceptions import BlankUsernameOrPasswordException, BlankExpenseException
 from dataclass import ExpenseData
+from decorators import timer
 
 
 class Database:
@@ -18,14 +19,17 @@ class Database:
         conn_str = "sqlite:///./database/expensieve.db"
         return conn_str
 
+    @timer
     def create_tables(self):
         self.logger.info("creating tables")
         Base.metadata.create_all(self.engine)
 
+    @timer
     def drop_tables(self):
         self.logger.info("dropping tables")
         Base.metadata.drop_all(self.engine)
 
+    @timer
     def create_user(self, username, password):
         if not username or not password:
             raise BlankUsernameOrPasswordException(
@@ -42,6 +46,7 @@ class Database:
                 session.add(new_user)
                 self.logger.info(f"created user: {username}")
 
+    @timer
     def get_user_id(self, username):
         self.logger.info(f"get_user_id: {username}")
         with Session(self.engine) as session:
@@ -51,6 +56,7 @@ class Database:
             self.logger.info(f"id: {id}")
             return id
 
+    @timer
     def get_user_password(self, username):
         self.logger.info(f"get_user_password: {username}")
         with Session(self.engine) as session:
@@ -60,6 +66,7 @@ class Database:
             self.logger.info(f"password: {password}")
             return password
 
+    @timer
     def save_expense(self, user_id, expense_name, expense_amount):
         if not user_id or not expense_name or not expense_amount:
             raise BlankExpenseException(
@@ -72,6 +79,7 @@ class Database:
         with Session(self.engine) as session:
             session.add(expense)
 
+    @timer
     def get_user_expenses(self, user_id):
         self.logger.info(f"get_user_expenses for user_id: {user_id}")
         with Session(self.engine) as session:
