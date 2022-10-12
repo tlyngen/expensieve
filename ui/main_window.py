@@ -35,7 +35,4 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.listWidgetExpenses.clear()
         exp = [ex.__repr__() for ex in expenses]
         self.listWidgetExpenses.addItems(exp)
-        total = 0
-        for ex in expenses:
-            total += ex.amount
-        self.labelTotalExpensesValue.setText(str(total))
+        self.labelTotalExpensesValue.setText(str(expenses.get_expense_total()))
