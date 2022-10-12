@@ -1,11 +1,12 @@
 import logging
 
-from .models import Base, User, Expense, UserExpense
+from .models import Base, User, Expense
 
-from sqlalchemy import create_engine, select, insert, update
+from sqlalchemy import create_engine, select
 from database.session import Session
 from exceptions import BlankUsernameOrPasswordException, BlankExpenseException
 from dataclass import ExpenseData
+from expense_list import ExpenseList
 from decorators import timer
 
 
@@ -87,11 +88,11 @@ class Database:
             result = session.execute(stmt)
             expenses = result.scalars().all()
             self.logger.info(f"expenses for user_id: {user_id}")
-            expense_data = []
+            expense_list = ExpenseList()
             for ex in expenses:
                 self.logger.info(ex)
-                expense_data.append(self.expense_model_to_data(ex))
-            return expense_data
+                expense_list.append(self.expense_model_to_data(ex))
+            return expense_list
 
     def expense_model_to_data(self, expense):
         ex = ExpenseData()

@@ -17,7 +17,6 @@ class ExpensieveApp(object):
 
     def run(self):
         self.logger.info("Expensieve app running")
-        # self.db_test()
         user = self.user_login()
         if user:
             self.load_main_form(user)
@@ -64,11 +63,3 @@ class ExpensieveApp(object):
         window = MainWindow(user)
         window.show()
         self.app.exec()
-
-    def db_test(self):
-        self.db.drop_tables()
-        self.db.create_tables()
-        self.db.create_user(username="tlyngen", password="hello")
-        password = self.db.get_user_password("tlyngen")
-        self.logger.info(f"user password: {password}")
-        self.db.create_user(username="tlyngen", password="hello")

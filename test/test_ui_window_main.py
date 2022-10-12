@@ -22,9 +22,9 @@ def test_main_window(main_window):
 
 def test_default_summary_values(main_window):
     window = main_window
-    value = int(window.labelTotalExpensesValue.text())
-    assert value == 0, f"expected 0, got {value}"
-    value = int(window.labelOwedToOthersValue.text())
-    assert value == 0, f"expected 0, got {value}"
-    value = int(window.labelOwedToMeValue.text())
-    assert value == 0, f"expected 0, got {value}"
+    value = float(window.labelTotalExpensesValue.text())
+    assert value == 0.0, f"expected 0.0, got {value}"
+    value = float(window.labelOwedToOthersValue.text())
+    assert value == 0.0, f"expected 0.0, got {value}"
+    value = float(window.labelOwedToMeValue.text())
+    assert value == 0.0, f"expected 0.0, got {value}"
