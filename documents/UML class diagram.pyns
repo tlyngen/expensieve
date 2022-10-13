@@ -1,0 +1,36 @@
+# PynSource Version 1.2
+{'type':'meta', 'info1':'Lorem ipsum dolor sit amet, consectetur adipiscing elit is latin. Comments are saved.'}
+{'type':'umlshape', 'id':'ExpensieveApp', 'x':420, 'y':414, 'width':146, 'height':218, 'attrs': 'app|config|db|logger', 'meths': '__init__|authenticate_user|create_user|load_main_form|run|user_login'}
+{'type':'umlshape', 'id':'object', 'x':361, 'y':831, 'width':70, 'height':28, 'attrs': '', 'meths': ''}
+{'type':'umlshape', 'id':'logging.getLogger', 'x':308, 'y':270, 'width':180, 'height':28, 'attrs': '', 'meths': ''}
+{'type':'umlshape', 'id':'QApplication', 'x':449, 'y':345, 'width':130, 'height':28, 'attrs': '', 'meths': ''}
+{'type':'umlshape', 'id':'ExpenseList', 'x':1255, 'y':425, 'width':146, 'height':154, 'attrs': 'data', 'meths': '__init__|_validate_list|_validate_type|append|get_expense_total'}
+{'type':'umlshape', 'id':'UserList', 'x':1287, 'y':360, 'width':90, 'height':28, 'attrs': '', 'meths': ''}
+{'type':'umlshape', 'id':'ExpenseData', 'x':1276, 'y':622, 'width':120, 'height':186, 'attrs': 'amount|date|id|name|open|split_type|user_id', 'meths': '__repr__'}
+{'type':'umlshape', 'id':'datetime', 'x':1293, 'y':864, 'width':90, 'height':28, 'attrs': '', 'meths': ''}
+{'type':'umlshape', 'id':'Database', 'x':153, 'y':422, 'width':178, 'height':266, 'attrs': 'connection_string|engine|logger', 'meths': '__init__|_create_conn_string|create_tables|create_user|drop_tables|expense_model_to_data|get_user_expenses|get_user_id|get_user_password|save_expense'}
+{'type':'umlshape', 'id':'LoginDialog', 'x':634, 'y':420, 'width':130, 'height':154, 'attrs': 'create_user', 'meths': '__init__|get_inputs|is_create_user|set_create_user|test_dialog'}
+{'type':'umlshape', 'id':'Ui_DialogLogin', 'x':623, 'y':612, 'width':150, 'height':186, 'attrs': 'labelPassword|labelUserName|lineEditPassword|lineEditUserName|pushButtonCreate|pushButtonLogin', 'meths': 'retranslateUi|setupUi'}
+{'type':'umlshape', 'id':'QDialog', 'x':751, 'y':348, 'width':80, 'height':28, 'attrs': '', 'meths': ''}
+{'type':'umlshape', 'id':'MainWindow', 'x':1013, 'y':426, 'width':162, 'height':154, 'attrs': 'database|logger|user', 'meths': '__init__|new_expense|update_expense_list'}
+{'type':'umlshape', 'id':'QMainWindow', 'x':1031, 'y':358, 'width':120, 'height':28, 'attrs': '', 'meths': ''}
+{'type':'umlshape', 'id':'Ui_MainWindow', 'x':1004, 'y':613, 'width':194, 'height':282, 'attrs': 'centralwidget|groupBoxExpenses|groupBoxSummary|labelOwedToMe|labelOwedToMeValue|labelOwedToOthers|labelOwedToOthersValue|labelTotalExpenses|labelTotalExpensesValue|listWidgetExpenses|pushButtonNewExpense|statusbar', 'meths': 'retranslateUi|setupUi'}
+{'type':'umlshape', 'id':'ExpenseDialog', 'x':810, 'y':418, 'width':140, 'height':80, 'attrs': '', 'meths': '__init__|get_inputs'}
+{'type':'umlshape', 'id':'Ui_DialogExpense', 'x':792, 'y':611, 'width':178, 'height':186, 'attrs': 'labelExpenseAmount|labelExpenseName|lineEditExpenseAmount|lineEditExpenseName|pushButtonCancel|pushButtonSave', 'meths': 'retranslateUi|setupUi'}
+{'type':'edge', 'id':'ExpensieveApp_to_object', 'source':'ExpensieveApp', 'target':'object', 'uml_edge_type': 'generalisation'}
+{'type':'edge', 'id':'logging.getLogger_to_ExpensieveApp', 'source':'logging.getLogger', 'target':'ExpensieveApp', 'uml_edge_type': 'composition'}
+{'type':'edge', 'id':'QApplication_to_ExpensieveApp', 'source':'QApplication', 'target':'ExpensieveApp', 'uml_edge_type': 'composition'}
+{'type':'edge', 'id':'ExpenseList_to_UserList', 'source':'ExpenseList', 'target':'UserList', 'uml_edge_type': 'generalisation'}
+{'type':'edge', 'id':'ExpenseData_to_ExpenseList', 'source':'ExpenseData', 'target':'ExpenseList', 'uml_edge_type': 'composition'}
+{'type':'edge', 'id':'datetime_to_ExpenseData', 'source':'datetime', 'target':'ExpenseData', 'uml_edge_type': 'composition'}
+{'type':'edge', 'id':'logging.getLogger_to_Database', 'source':'logging.getLogger', 'target':'Database', 'uml_edge_type': 'composition'}
+{'type':'edge', 'id':'LoginDialog_to_Ui_DialogLogin', 'source':'LoginDialog', 'target':'Ui_DialogLogin', 'uml_edge_type': 'generalisation'}
+{'type':'edge', 'id':'LoginDialog_to_QDialog', 'source':'LoginDialog', 'target':'QDialog', 'uml_edge_type': 'generalisation'}
+{'type':'edge', 'id':'MainWindow_to_QMainWindow', 'source':'MainWindow', 'target':'QMainWindow', 'uml_edge_type': 'generalisation'}
+{'type':'edge', 'id':'MainWindow_to_Ui_MainWindow', 'source':'MainWindow', 'target':'Ui_MainWindow', 'uml_edge_type': 'generalisation'}
+{'type':'edge', 'id':'logging.getLogger_to_MainWindow', 'source':'logging.getLogger', 'target':'MainWindow', 'uml_edge_type': 'composition'}
+{'type':'edge', 'id':'ExpenseDialog_to_QDialog', 'source':'ExpenseDialog', 'target':'QDialog', 'uml_edge_type': 'generalisation'}
+{'type':'edge', 'id':'ExpenseDialog_to_Ui_DialogExpense', 'source':'ExpenseDialog', 'target':'Ui_DialogExpense', 'uml_edge_type': 'generalisation'}
+{'type':'edge', 'id':'Ui_MainWindow_to_object', 'source':'Ui_MainWindow', 'target':'object', 'uml_edge_type': 'generalisation'}
+{'type':'edge', 'id':'Ui_DialogLogin_to_object', 'source':'Ui_DialogLogin', 'target':'object', 'uml_edge_type': 'generalisation'}
+{'type':'edge', 'id':'Ui_DialogExpense_to_object', 'source':'Ui_DialogExpense', 'target':'object', 'uml_edge_type': 'generalisation'}
