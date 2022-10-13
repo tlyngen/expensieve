@@ -11,7 +11,8 @@ class ExpensieveApp(object):
     def __init__(self, config):
         self.logger = logging.getLogger(__name__)
         self.config = config
-        self.db = Database(self.config["database"]["sql_echo"])
+        self.db = Database.instance()
+        self.logger.debug(f"database instance: {self.db}")
         self.db.create_tables()
         self.app = QApplication([])
 

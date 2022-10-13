@@ -8,13 +8,15 @@ from exceptions import BlankUsernameOrPasswordException, BlankExpenseException
 from dataclass import ExpenseData
 from expense_list import ExpenseList
 from decorators import timer
+from database.singleton import Singleton
 
 
+@Singleton
 class Database:
-    def __init__(self, echo=False):
+    def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.connection_string = self._create_conn_string()
-        self.engine = create_engine(self.connection_string, echo=echo)
+        self.engine = create_engine(self.connection_string)
 
     def _create_conn_string(self):
         conn_str = "sqlite:///./database/expensieve.db"

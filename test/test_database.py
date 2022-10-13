@@ -9,7 +9,7 @@ from database.dao import Database
 
 @pytest.fixture(scope="session")
 def app_database():
-    database = Database(echo=True)
+    database = Database.instance()
     yield database
 
 

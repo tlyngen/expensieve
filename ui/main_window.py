@@ -10,7 +10,8 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def __init__(self, user, parent=None):
         super().__init__(parent)
         self.logger = logging.getLogger(__name__)
-        self.database = Database()
+        self.database = Database.instance()
+        self.logger.debug(f"database instance: {self.database}")
         self.user = user
         self.setupUi(self)
         self.setWindowTitle(f"{self.windowTitle()} - {self.user}")
